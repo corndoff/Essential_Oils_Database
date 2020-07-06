@@ -1,0 +1,322 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    ThirdWindow:
+    FourthWindow:
+    FifthWindow:
+    
+<MainWindow>:
+    
+    name: "main"
+    
+    GridLayout:
+        rows: 4
+        Button:
+            text: "Add oil"
+            on_release:
+                app.root.current = "second"
+        Button:
+            text: "List of oils"
+            on_release:
+                app.root.current = "third"
+        Button:
+            text: "Edit oil"
+            on_release: 
+                app.root.current = "fourth"
+
+        Button:
+            text: "Remove oil"
+            on_release:
+                app.root.current = "fifth"
+<SecondWindow>:
+    name: "second"
+    oilName: oilName
+    oilAmt: oilAmt
+    bottle_size: bottle_size
+    bottle_size2: bottle_size2
+    bottle_size3: bottle_size3
+    
+    GridLayout:
+        cols: 1
+
+        Label:
+            text: "Add Oil Page"
+            canvas.before:
+                Color:
+                    rgba: .3, .3, .3, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.size
+        GridLayout:
+            cols: 2
+            padding: 50, 275, 50, 0
+            Label:
+                text: "Enter Oil Name"
+                
+            TextInput:
+                id: oilName
+                multiline: False
+                
+        GridLayout:
+            cols: 2
+            padding: 50, 200, 50, 75
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: .9, .5, .5, 1
+                text: "Enter Oil Amount"
+            TextInput:
+                id: oilAmt
+                multiline: False
+        GridLayout:
+            cols: 2
+            padding: 50, 150, 50, 100
+            Label:
+                text: "Size of Bottle"
+            GridLayout:
+                cols: 3
+                ToggleButton:
+                    id: bottle_size
+                    text: "5 ml"
+                    group: "bottle"
+                    state: "down"
+                    on_state:
+                        root.set_to_5()
+                ToggleButton:
+                    id: bottle_size2
+                    text: "10 ml"
+                    group: "bottle"
+                    on_state:
+                        root.set_to_10()
+                ToggleButton:
+                    id: bottle_size3
+                    text: "15 ml"
+                    group: "bottle"
+                    on_state:
+                        root.set_to_15()
+        GridLayout:
+            padding: 100, 200, 100, 0
+            cols: 2
+            
+            Button:
+                size_hint: 1, .4
+                text: "Submit"
+                on_release: 
+                    root.add_oil()
+                    root.reset()
+            Button:
+                text: "Main"
+                on_release:
+                    root.reset()
+                    app.root.current = "main"
+<ThirdWindow>:
+    name: "third"
+    tryingthis: tryingthis
+    canvas.before:
+        Color:
+            rgba: .5, .7, .8, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 0, 0, 0, 500
+            Label:
+                text: "Oils Page"
+                canvas.before:
+                    Color:
+                        rgba: .3, .3, .3, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+        GridLayout:
+            rows: 2
+            BoxLayout:
+                orientation: 'vertical'
+                GridLayout:
+                    cols: 1
+                    id: tryingthis
+        GridLayout:
+            cols: 3
+            padding: 100, 200, 100, 0
+            Button:
+                size_hint: 1, .4
+                text: "Get Oils"
+                on_release:
+                    root.reset()
+                    root.print_oil()
+            Button:
+                text: "Low Oils"
+                on_release:
+                    root.reset()
+                    root.low_oils()
+            Button:
+                text: "Return"
+                on_release:
+                    root.reset()
+                    app.root.current = "main"
+<FourthWindow>:
+    name: "fourth"
+    
+    oilName: oilName
+    addAmt: addAmt
+    subAmt: subAmt
+    canvas.before:
+        Color:
+            rgba: .5, .7, .8, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Edit Oil Page"
+            canvas.before:
+                Color:
+                    rgba: .3, .3, .3, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    
+        GridLayout:
+            cols: 2
+            padding: 0, 200, 50, 175
+            Label:
+                text: "Enter Oil to Edit"
+                
+            TextInput:
+                id: oilName
+                multiline: False
+                
+        GridLayout:
+            cols: 3
+            size_hint: .3, .3
+            padding: 50, 20, 50, 20
+            
+            Label:
+                text: "Add Oil"
+                
+            TextInput:
+                id: addAmt
+                multiline: False
+                
+            Button:
+                text: "+"
+                on_release:
+                    root.add_to_oil()
+                    root.reset()
+
+        GridLayout:
+            cols: 3
+            padding: 375, 20, 50, 20
+            size_hint: .3, .3
+            ToggleButton:
+                id: "bottle_size"
+                text: "5 ml"
+                state: "down"
+                group: "bottle2"
+                on_state:
+                    root.set_to_5()
+
+            ToggleButton:
+                id: "bottle_size"
+                text: "10 ml"
+                group: "bottle2"
+                on_state:
+                    root.set_to_10()
+
+            ToggleButton:
+                id: "bottle_size"
+                text: "15 ml"
+                group: "bottle2"
+                on_state:
+                    root.set_to_15()
+
+        GridLayout:
+            cols: 3
+            padding: 50, 20, 50, 20
+            size_hint: .3, .3
+                    
+            Label: 
+                text: "Subtract Drops"
+                
+            TextInput:
+                id: subAmt
+                multiline: False
+                
+            Button:
+                text: "-"
+                on_release:
+                    root.sub_from_oil()
+                    root.reset()
+                    
+        GridLayout:
+            padding: 150, 250, 150, 0
+            cols: 1
+            Button:
+                size_hint: 
+                size: 
+                text: "Main"
+                on_release:
+                    root.reset()
+                    app.root.current = "main"
+
+<FifthWindow>:
+    name: "fifth"
+    removeOil: removeOil
+    canvas.before:
+        Color:
+            rgba: .5, .7, .8, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 0, 0, 0, 150
+            Label:
+                text: "Removing Oil Page"
+                canvas.before:
+                    Color:
+                        rgba: .3, .3, .3, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                        
+        GridLayout:
+            rows: 2
+
+            Label:
+                text: "Enter Oil to Remove"
+
+            TextInput:
+                id: removeOil
+                multline: False
+                
+        GridLayout:
+            padding: 150, 350, 100, 0
+            cols: 2
+            
+            Button:
+                text: "Submit"
+                on_release:
+                    root.remove_oil()
+                    root.reset()
+            Button:
+                text: "Main"
+                on_release:
+                    app.root.current = "main"
+
+
+
+
+
+
+
+
+        
